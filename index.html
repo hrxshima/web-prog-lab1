@@ -4,12 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>КрутоМаркет - Интернет-магазин</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>    
 <body>
     <header class="header">
         <div class="container header__container">
-            <a href="#" class="logo">КрутоМаркет</a>
+            <div class="logo-wrapper">
+                <a href="#" class="logo">КрутоМаркет</a>
+                <span class="logo__subtitle">интернет-магазин техники</span>
+            </div>
             <button class="cart-trigger" id="cart-toggle-btn" type="button" aria-label="Открыть корзину">
                 Корзина (<span id="cart-count">0</span>)
             </button>

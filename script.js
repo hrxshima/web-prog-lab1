@@ -78,17 +78,29 @@ function renderCatalog() {
       `).join("");
 }
 
-window.addToCart = function (productId) {
+window.addToCart = function(productId) {
     const existing = cart.find(item => item.id === productId);
     if (existing) {
-        existing.quantity += 1;
+      existing.quantity += 1;
     } else {
-        const product = PRODUCTS.find(p => p.id === productId);
-        if (!product) return;
-        cart.push({ ...product, quantity: 1 });
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+      cart.push({ ...product, quantity: 1 });
     }
     updateCart();
-};
+  
+    const cartPanel = document.getElementById("cart-panel");
+    if (cartPanel) {
+      cartPanel.classList.remove("cart--highlight");
+      void cartPanel.offsetWidth;
+      cartPanel.classList.add("cart--highlight");
+  
+      // Если экран узкий, плавно скроллим к ней
+      if (window.innerWidth <= 900) {
+        cartPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+  };
 
 window.changeQuantity = function (productId, delta) {
     const item = cart.find(i => i.id === productId);
