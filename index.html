@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>КрутоМаркет - Интернет-магазин</title>
+    <link rel="stylesheet" href="style.css" />
+</head>    
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <a href="#" class="logo">КрутоМаркет</a>
+            <button class="cart-trigger" id="cart-toggle-btn" type="button" aria-label="Открыть корзину">
+                Корзина (<span id="cart-count">0</span>)
+            </button>
+        </div>   
+    </header>         
+
+    <main class="container main-layout">
+        <section class="catalog" aria-labelledby="catalog-title">
+            <h1 id="catalog-title" class="section-title">Каталог товаров</h1>
+        <!-- Контейнер для карточек (будут рендериться через JS) -->
+            <div class="catalog__grid" id="catalog-list">
+        <!-- Карточки товаров появятся здесь -->
+            </div>
+        </section>
+        
+        <!-- Боковая панель корзины -->
+        <aside class="cart" id="cart-panel" aria-labelledby="cart-title">
+            <h2 id="cart-title" class="cart__title">Корзина</h2>
+
+            <div class="cart__items" id="cart-items">
+                <p class="cart__empty">Корзина пуста</p>
+            </div>
+
+            <div class="cart__footer">
+                <div class="cart__total">
+                    Итого: <strong id="cart-total-price">0 ₽</strong>
+                </div>
+                <button id="checkout-btn" class="btn btn--primary" type="button" disabled>
+                    Оформить заказ
+                </button>
+            </div>
+        </aside>    
+    </main>  
+    
+    <!-- Модальное окно оформления заказа -->
+    <dialog id="order-modal" class="modal">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 class="modal__title">Оформление заказа</h2>
+                <button type="button" class="modal__close" id="close-modal-btn" aria-label="Закрыть">&times;</button>
+            </div>
+
+            <form id="order-form" class="order-form" novalidate>
+                <div class="form-group">
+                    <label for="first-name">Имя *</label>
+                    <input type="text" id="first-name" name="firstName" required placeholder="Иван" />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">Фамилия *</label>
+                    <input type="text" id="last-name" name="lastName" required placeholder="Иванов" />
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Контактный номер телефона *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 000-00-00" />
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--full">Создать заказ</button>
+            </form>
+
+            <div id="order-success-msg" class="order-success" hidden>
+                Заказ создан!🎉
+            </div>
+        </div>
+    </dialog>
+    
+    <footer class="footer">
+        <div class="container footer__container">
+            <p>&copy; 2026 КрутоМаркет. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>    
+</html>
