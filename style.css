@@ -88,13 +88,19 @@
     transform: scale(1.03);
   }
   
-  /* Сетка страницы */
+  /* Сетка страницы: по умолчанию 1 колонка во всю ширину */
   .main-layout {
     display: grid;
-    grid-template-columns: 1fr 340px;
+    grid-template-columns: 1fr;
     gap: 24px;
     margin: 24px auto;
     flex: 1;
+    transition: grid-template-columns 0.3s ease;
+  }
+  
+  /* Когда есть товары — делим экран на каталог и корзину справа */
+  .main-layout.has-cart {
+    grid-template-columns: 1fr 340px;
   }
   
   .section-title {
@@ -144,8 +150,9 @@
     color: #20d7c8;
   }
   
-  /* Панель корзины */
+  /* Панель корзины: по умолчанию скрыта */
   .cart {
+    display: none;
     background: var(--card-bg);
     border: 2px solid var(--border);
     color: var(--text-card);
@@ -153,6 +160,12 @@
     padding: 20px;
     box-shadow: var(--shadow);
     height: fit-content;
+  }
+  
+  /* Показываем корзину, только когда есть товары */
+  .main-layout.has-cart .cart {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
   }
   
   .cart__title {
@@ -368,19 +381,18 @@
     font-size: 0.55rem;
   }
   
-  /* Адаптивность */
-  @media (max-width: 900px) {
-    .main-layout {
-      grid-template-columns: 1fr;
+  /* Анимации */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
   
-  @media (max-width: 600px) {
-    .catalog__grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
   @keyframes cartBounce {
     0% {
       transform: scale(1);
@@ -398,4 +410,18 @@
   
   .cart--highlight {
     animation: cartBounce 0.5s ease;
+  }
+  
+  /* Адаптивность для планшетов и телефонов */
+  @media (max-width: 900px) {
+    .main-layout,
+    .main-layout.has-cart {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .catalog__grid {
+      grid-template-columns: 1fr;
+    }
   }

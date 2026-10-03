@@ -119,36 +119,46 @@ window.removeFromCart = function (productId) {
     updateCart();
 };
 
+// 6. Перерисовка корзины и подсчет суммы
 function updateCart() {
     saveCart();
-
+  
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
+  
     cartCountEl.textContent = totalQuantity;
     cartTotalEl.textContent = `${totalPrice.toLocaleString("ru-RU")} ₽`;
     checkoutBtn.disabled = cart.length === 0;
-
+  
+    const mainLayout = document.querySelector(".main-layout");
+  
+    // ЕСЛИ КОРЗИНА ПУСТА: убираем класс, корзина скрывается
     if (cart.length === 0) {
-        cartItemsEl.innerHTML = `<p class="cart__empty">Корзина пуста</p>`;
-        return;
+      if (mainLayout) mainLayout.classList.remove("has-cart");
+      cartItemsEl.innerHTML = `<p class="cart__empty">Корзина пуста</p>`;
+      return;
     }
-
+  
+    // ЕСЛИ В КОРЗИНЕ ЕСТЬ ТОВАРЫ: добавляем класс, корзина появляется справа!
+    if (mainLayout) {
+      mainLayout.classList.add("has-cart");
+    }
+  
     cartItemsEl.innerHTML = cart.map(item => `
-        <div class="cart-item">
-          <div class="cart-item__info">
-            <div class="cart-item__title">${item.title}</div>
-            <div class="cart-item__price">${item.price.toLocaleString("ru-RU")} ₽ × ${item.quantity}</div>
-          </div>
-          <div class="cart-item__controls">
-            <button class="btn-counter" type="button" onclick="changeQuantity(${item.id}, -1)">-</button>
-            <span>${item.quantity}</span>
-            <button class="btn-counter" type="button" onclick="changeQuantity(${item.id}, 1)">+</button>
-            <button class="btn-remove" type="button" onclick="removeFromCart(${item.id})" aria-label="Удалить">&times;</button>
-          </div>
+      <div class="cart-item">
+        <div class="cart-item__info">
+          <div class="cart-item__title">${item.title}</div>
+          <div class="cart-item__price">${item.price.toLocaleString("ru-RU")} ₽ × ${item.quantity}</div>
         </div>
-      `).join("");
-}
+        <div class="cart-item__controls">
+          <button class="btn-counter" type="button" onclick="changeQuantity(${item.id}, -1)">-</button>
+          <span>${item.quantity}</span>
+          <button class="btn-counter" type="button" onclick="changeQuantity(${item.id}, 1)">+</button>
+          <button class="btn-remove" type="button" onclick="removeFromCart(${item.id})" aria-label="Удалить">&times;</button>
+        </div>
+      </div>
+    `).join("");
+  }
 
 checkoutBtn.addEventListener("click", () => {
     orderModal.showModal();
