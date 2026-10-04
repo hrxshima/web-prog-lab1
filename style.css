@@ -112,7 +112,7 @@
   /* Каталог карточек */
   .catalog__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
   
@@ -412,11 +412,14 @@
     animation: cartBounce 0.5s ease;
   }
   
-  /* Адаптивность для планшетов и телефонов */
   @media (max-width: 900px) {
     .main-layout,
     .main-layout.has-cart {
       grid-template-columns: 1fr;
+    }
+  
+    .catalog__grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   
