@@ -60,10 +60,27 @@
   }
   
   .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-size: 1.1rem;
     color: #ec4899;
     text-decoration: none;
     letter-spacing: 1px;
+  }
+  
+  /* Стилизация иконки */
+   .logo__icon {
+    width: 24px;
+    height: 24px;
+    color: #20d7c8; /* Неоново-бирюзовый цвет под кнопки и цены */
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  
+  /* При наведении логотип слегка наклоняется */
+  .logo:hover .logo__icon {
+    transform: rotate(-10deg) scale(1.15);
   }
   
   .logo__subtitle {
