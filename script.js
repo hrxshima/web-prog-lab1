@@ -42,6 +42,8 @@ const STORAGE_KEY = "shop_cart_data";
 let cart = loadCart();
 
 const catalogEl = document.getElementById("catalog-list");
+const catalogSearchEl = document.getElementById("catalog-search");
+const catalogEmptyEl = document.getElementById("catalog-empty");
 const cartItemsEl = document.getElementById("cart-items");
 const cartTotalEl = document.getElementById("cart-total-price");
 const cartCountEl = document.getElementById("cart-count");
@@ -66,7 +68,13 @@ function saveCart() {
 }
 
 function renderCatalog() {
-    catalogEl.innerHTML = PRODUCTS.map(product => `
+    const query = catalogSearchEl.value.trim().toLocaleLowerCase("ru-RU");
+    const filteredProducts = query
+        ? PRODUCTS.filter(product => product.title.toLocaleLowerCase("ru-RU").includes(query))
+        : PRODUCTS;
+
+    catalogEmptyEl.hidden = filteredProducts.length > 0;
+    catalogEl.innerHTML = filteredProducts.map(product => `
         <article class="product-card">
           <img class="product-card__img" src="${product.image}" alt="${product.title}" loading="lazy" />
           <h3 class="product-card__title">${product.title}</h3>
@@ -77,6 +85,8 @@ function renderCatalog() {
         </article>
       `).join("");
 }
+
+catalogSearchEl.addEventListener("input", renderCatalog);
 
 window.addToCart = function(productId) {
     const existing = cart.find(item => item.id === productId);
