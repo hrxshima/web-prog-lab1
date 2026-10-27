@@ -36,6 +36,17 @@
     <main class="container main-layout">
         <section class="catalog" aria-labelledby="catalog-title">
             <h1 id="catalog-title" class="section-title">Каталог товаров</h1>
+            <label class="catalog__search-label" for="catalog-search">Поиск по каталогу</label>
+            <input
+                class="catalog__search"
+                id="catalog-search"
+                type="search"
+                placeholder="Введите название товара"
+                autocomplete="off"
+            />
+            <p class="catalog__empty" id="catalog-empty" role="status" hidden>
+                По вашему запросу ничего не найдено.
+            </p>
         <!-- Контейнер для карточек (будут рендериться через JS) -->
             <div class="catalog__grid" id="catalog-list">
         <!-- Карточки товаров появятся здесь -->
